@@ -4,7 +4,7 @@ Using Python run shell commands and output results into ```stats.json``` for use
 
 
  - Usage ```Python /path/to/stats.py > stats.json```
-
+I run this in the ```/var/www/html``` folder for apache on rasbian jessie. This provides an HTTP enpoint at the ip of the device for quick checking stats.
  
 SAMPLE OUTPUTS
 * JSON
@@ -25,7 +25,7 @@ Current User(s)	0 Connected
 Load Average	
 Since 1 minute	0 %
 Since 5 minutes	7 %
-Since 15 minutes	13 %
+Since 15 minutes 13 %
 
 CPU	
 Model	ARMv6-compatible processor rev 7 (v6l)
@@ -48,7 +48,7 @@ Used	1.1 GB
 Processes	
 Total Processes	100
 SMB	online
-Bluetooth	online
+Bluetooth online
 SSH	online
 
 Temperature	
