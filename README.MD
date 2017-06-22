@@ -9,7 +9,7 @@ I run this in the ```/var/www/html``` folder for apache on rasbian jessie. This 
 * Remove generated ```index.html``` with ```sudo rm -f /var/www/html/index.html```
 * Copy files ```sudo git clone https://github.com/Norien/PiStat /var/www/html/```
 * Set Premissions ```sudo chmod -R 0777 /var/www/html/```
-* to the bottom of ```sudo crontab -e``` add ```*/3 * * * * python /var/www/html/ stats.py > /var/www/html/stats.json``` where the number represents how often the script will run in minutes
+* to the bottom of ```sudo crontab -e``` add ```*/3 * * * * python /var/www/html/stats.py > /var/www/html/stats.json``` where the number represents how often the script will run in minutes
 * you can now access the internal IP of the Raspberry Pi to see stats.
 
 
