@@ -1,0 +1,154 @@
+	
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+
+<script>
+
+    $(function() {
+
+
+   var network = [];
+   var system = [];
+
+   $.getJSON('stats.json', function(data) {
+       
+          var tblRow = "<tr>" + 
+		  "<td>" + "Hostname" + "</td>" + "<td>" + data.network.hostname + "</td>" + "<tr>" +
+		  "<td>" + "IP LAN" + "</td>" + "<td>" + data.network.lan_ip + "</td>" + "<tr>" + 
+		  "<td>" + "Mac Address" + "</td>" + "<td>" + data.network.lan_mac + "</td>" + "</td>" + "</tr>"
+           $(tblRow).appendTo("#network tbody");
+		   
+		  var tblRow = "<tr>" + 
+		  "<td>" + "OS" + "</td>" + "<td>" + data.system.release + "</td>" + "<tr>" + 
+		  "<td>" + "Kernel" + "</td>" + "<td>" + data.system.kernel + "</td>" + "<tr>" + 
+		  "<td>" + "Uptime" + "</td>" + "<td>" + data.system.uptime + "</td>" + "<tr>" + 
+		  "<td>" + "Last Boot" + "</td>" + "<td>" + data.system.last_boot_day + " " + data.system.last_boot_time + "</td>" + "<tr>" +
+		  "<td>" + "Server Time" + "</td>" + "<td>" + data.system.server_time + "</td>" + "<tr>" + 
+		  "<td>" + "Current User(s)" + "</td>" + "<td>" + data.system.users + " Connected" + "</td>" +
+		  "</td>"  + "</tr>"
+           $(tblRow).appendTo("#system tbody");  	 
+
+		  var tblRow = "<tr>" + 
+		  "<td>" + "System Temp" + "</td>" + "<td>" + data.temperature.system_temp + "&#8451" + "</td>" 
+		  + "</td>"  + "</tr>"
+           $(tblRow).appendTo("#temperature tbody");
+
+		  var tblRow = "<tr>" + 
+		  "<td>" + "RAM" + "</td>" + "<td>" + data.memory.used + " Mb free of " + data.memory.total + " Mb" + "</td>" 
+		  + "</td>" + "</tr>"
+           $(tblRow).appendTo("#memory tbody");		   
+
+          var tblRow = "<tr>" + 
+		  "<td>" + "Since 1 minute" + "</td>" + "<td>" + data.load_average.one_minute + " %" + "</td>" + "<tr>" +
+		  "<td>" + "Since 5 minutes" + "</td>" + "<td>" + data.load_average.five_minutes + " %" + "</td>" + "<tr>" + 
+		  "<td>" + "Since 15 minutes" + "</td>" + "<td>" + data.load_average.fifteen_minutes + " %" + "</td>" + "</td>" + "</tr>"
+           $(tblRow).appendTo("#load_average tbody");
+
+          var tblRow = "<tr>" + 
+		  "<td>" + "Model" + "</td>" + "<td>" + data.cpu.cpu_model + "</td>" + "<tr>" + 
+		  "<td>" + "Frequency" + "</td>" + "<td>" + data.cpu.cpu_frequency + " MHz" + "</td>" + "</td>" + "</tr>"
+           $(tblRow).appendTo("#cpu tbody");
+
+		  var tblRow = "<tr>" + 
+		  "<td>" + "Use" + "</td>" + "<td>" + data.disk_space.disk_space_use + " %" + "</td>" + "<tr>" + 
+		  "<td>" + "Total Size" + "</td>" + "<td>" + data.disk_space.disk_space_size + " GB" + "</td>" + "<tr>" +
+		  "<td>" + "Available Space" + "</td>" + "<td>" + data.disk_space.disk_space_available + " GB" + "</td>" + "<tr>" + 
+		  "<td>" + "Used" + "</td>" + "<td>" + data.disk_space.disk_space_used + " GB" + "</td>" +
+		  "</td>"  + "</tr>"
+           $(tblRow).appendTo("#disk_space tbody"); 
+
+          var tblRow = "<tr>" + 
+		  "<td>" + "Total Processes" + "</td>" + "<td>" + data.processes.process_total + "</td>" + "<tr>" + 
+		  "<td>" + "SMB" + "</td>" + "<td>" + data.processes.smbd + "</td>" + "<tr>" + 		  
+		  "<td>" + "Bluetooth" + "</td>" + "<td>" + data.processes.bluetooth + "</td>" + "<tr>" + 		  
+		  "<td>" + "SSH" + "</td>" + "<td>" + data.processes.ssh + "</td>" + "</td>" + "</tr>"
+           $(tblRow).appendTo("#processes tbody");
+		   
+   });
+
+});
+</script>
+</head>
+
+<body>
+<div class="wrapper">
+<div class="profile">
+   <table id= "system" border="0">
+  <thead>
+            <th align="left">System</th>
+            <th></th>
+        </thead>
+      <tbody>
+
+<br />
+<div class="wrapper">
+<div class="profile">
+   <table id= "load_average" border="0">
+  <thead>
+            <th align="left">Load Average</th>
+            <th></th>
+        </thead>
+      <tbody>
+
+<br/>
+<div class="wrapper">
+<div class="profile">
+   <table id= "cpu" border="0">
+  <thead>
+            <th align="left">CPU</th>
+            <th></th>
+        </thead>
+      <tbody>
+
+<br />
+<div class="wrapper">
+<div class="profile">
+   <table id= "memory" border="0">
+  <thead>
+            <th align="left">Memory</th>
+            <th></th>
+        </thead>
+      <tbody>	  
+	  
+<br/>
+<div class="wrapper">
+<div class="profile">
+   <table id= "network" border="0">
+  <thead>
+            <th align="left">Network</th>
+            <th></th>
+        </thead>
+      <tbody>
+
+<br/>
+<div class="wrapper">
+<div class="profile">
+   <table id= "disk_space" border="0">
+  <thead>
+            <th align="left">Disk Space</th>
+            <th></th>
+        </thead>
+      <tbody>
+
+<br/>
+<div class="wrapper">
+<div class="profile">
+   <table id= "processes" border="0">
+  <thead>
+            <th align="left">Processes</th>
+            <th></th>
+        </thead>
+      <tbody>	  
+	  
+<br />	
+<div class="wrapper">
+<div class="profile">
+   <table id= "temperature" border="0">
+  <thead>
+            <th align="left">Temperature</th>
+            <th></th>
+        </thead>
+      <tbody>
+<br />
+

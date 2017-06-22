@@ -1,0 +1,224 @@
+################################################################
+## Packages / PiStat
+################################################################
+homeassistant:
+  customize:
+    # SYSTEM
+    sensor.pistat_uptime:
+      friendly_name: System uptime
+      icon: mdi:timer
+    # MEMORY
+    sensor.pistat_ram:
+      friendly_name: RAM
+      icon: mdi:chip
+    # NETWORK
+    sensor.pistat_ip:
+      friendly_name: Internal IP
+      icon: mdi:earth
+    # TEMPERATURE
+    sensor.pistat_temperature:
+      friendly_name: Temperature
+    # PROCESSES
+
+###### STATE CARD
+group:
+  pistat:
+    name: Pi Zero Status
+    control: hidden
+    entities:
+     # SYSTEM
+     - sensor.pistat_release
+     - sensor.pistat_kernel
+     - sensor.pistat_uptime
+     - sensor.pistat_last_boot_day
+     - sensor.pistat_last_boot_time
+     - sensor.pistat_users
+     - sensor.pistat_server_time
+     # LOAD AVERAGE
+     - sensor.pistat_one_minute
+     - sensor.pistat_five_minutes
+     - sensor.pistat_fifteen_minutes
+     # CPU
+     - sensor.pistat_cpu_model
+     - sensor.pistat_cpu_frequency
+     # MEMORY
+     - sensor.pistat_mem_total
+     - sensor.pistat_mem_used
+     - sensor.pistat_ram
+     # NETWORK
+     - sensor.pistat_ip
+     - sensor.pistat_mac
+     - sensor.pistat_hostname
+     # DISK SPACE
+     - sensor.pistat_disk_size
+     - sensor.pistat_disk_used
+     - sensor.pistat_disk_available
+     - sensor.pistat_disk_use
+     # TEMPERATURE
+     - sensor.pistat_temperature
+     # PROCESSES
+     - sensor.pistat_process_total
+     - sensor.pistat_process_running
+     - sensor.pistat_ssh
+     - sensor.pistat_smbd
+     - sensor.pistat_bluetooth
+
+sensor:
+###### SYSTEM
+  - platform: rest
+    name: pistat_release
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.system.release }}'
+
+  - platform: rest
+    name: pistat_kernel
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.system.kernel }}'
+
+  - platform: rest
+    name: pistat_uptime
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.system.uptime }}'
+
+  - platform: rest
+    name: pistat_last_boot_day
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.system.last_boot_day }}'
+
+  - platform: rest
+    name: pistat_last_boot_time
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.system.last_boot_time }}'
+
+  - platform: rest
+    name: pistat_users
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.system.users }}'
+
+  - platform: rest
+    name: pistat_server_time
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.system.server_time }}'
+
+###### LOAD AVERAGE
+  - platform: rest
+    name: pistat_one_minute
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.load_average.one_minute }}'
+    unit_of_measurement: '%'
+
+  - platform: rest
+    name: pistat_five_minutes
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.load_average.five_minutes }}'
+    unit_of_measurement: '%'
+
+  - platform: rest
+    name: pistat_fifteen_minutes
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.load_average.fifteen_minutes }}'
+    unit_of_measurement: '%'
+
+###### CPU
+  - platform: rest
+    name: pistat_cpu_model
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.cpu.cpu_model }}'
+
+  - platform: rest
+    name: pistat_cpu_frequency
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.cpu.cpu_frequency }}'
+    unit_of_measurement: 'MHZ'
+
+###### MEMORY
+  - platform: rest
+    name: pistat_mem_total
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.memory.total }}'
+    unit_of_measurement: 'MB'
+
+  - platform: rest
+    name: pistat_mem_used
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.memory.used }}'
+    unit_of_measurement: 'MB'
+# Custom RAM Template to display used / total in a single line
+  - platform: template
+    sensors:
+      pistat_ram:
+        value_template: "{{states.sensor.pistat_mem_used.state|int}} MB / {{states.sensor.pistat_mem_total.state}} MB"
+
+###### NETWORK
+  - platform: rest
+    name: pistat_ip
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.network.lan_ip }}'
+
+  - platform: rest
+    name: pistat_mac
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.network.lan_mac }}'
+
+  - platform: rest
+    name: pistat_hostname
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.network.hostname }}'
+
+###### DISK SPACE
+  - platform: rest
+    name: pistat_disk_size
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.disk_space.disk_space_size }}'
+    unit_of_measurement: 'GB'
+
+  - platform: rest
+    name: pistat_disk_used
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.disk_space.disk_space_used }}'
+    unit_of_measurement: 'GB'
+
+  - platform: rest
+    name: pistat_disk_available
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.disk_space.disk_space_available }}'
+    unit_of_measurement: 'GB'
+
+  - platform: rest
+    name: pistat_disk_use
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.disk_space.disk_space_use }}'
+    unit_of_measurement: '%'
+
+###### TEMPERATURE
+  - platform: rest
+    name: pistat_temperature
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.temperature.system_temp }}'
+    unit_of_measurement: '°C'
+
+###### PROCESSES
+  - platform: rest
+    name: pistat_process_total
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.processes.process_total }}'
+
+  - platform: rest
+    name: pistat_process_running
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.processes.process_running }}'
+
+  - platform: rest
+    name: pistat_ssh
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.processes.ssh }}'
+
+  - platform: rest
+    name: pistat_smbd
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.processes.smbd }}'
+
+  - platform: rest
+    name: pistat_bluetooth
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.processes.bluetooth }}'
