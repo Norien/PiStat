@@ -3,7 +3,7 @@
 Using Python run shell commands and output results into ```stats.json``` for use in HTML or Home Assistant
 
 
-- USAGE
+## USAGE
 I run this in the ```/var/www/html``` folder for apache on rasbian jessie. This provides an HTTP enpoint at the ip of the device for quick checking stats.
 * Install apache2 ```sudo apt-get install apache2 -y```
 * Remove generated ```index.html``` with ```sudo rm -f /var/www/html/index.html```
