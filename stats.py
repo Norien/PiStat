@@ -22,6 +22,7 @@ cpu_frequency = subprocess.check_output("cat /sys/devices/system/cpu/cpu0/cpufre
 
 memory_total = subprocess.check_output("/usr/bin/free -tm | grep -i Mem: | awk '{print $2}'", shell=True)
 memory_used = subprocess.check_output("/usr/bin/free -tm | grep -i Mem: | awk '{print $4}'", shell=True)
+memory_gpu = subprocess.check_output("vcgencmd get_mem gpu", shell=True)
 
 hostname = subprocess.check_output('hostname', shell=True)
 lan_ip = subprocess.check_output("ip route get 8.8.8.8 | awk '{print $NF; exit}'", shell=True)
@@ -72,6 +73,7 @@ out["cpu"]["cpu_frequency"] = int(cpu_frequency.strip()) / 1000
 out["memory"] = {}
 out["memory"]["total"] = int(memory_total)
 out["memory"]["used"] = int(memory_used)
+out["memory"]["gpu"] = memory_gpu.strip()[4:-1]
 
 out["network"] = {}
 out["network"]["hostname"] = hostname.strip()

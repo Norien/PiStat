@@ -35,8 +35,8 @@
            $(tblRow).appendTo("#temperature tbody");
 
 		  var tblRow = "<tr>" + 
-		  "<td>" + "RAM" + "</td>" + "<td>" + data.memory.used + " Mb free of " + data.memory.total + " Mb" + "</td>" 
-		  + "</td>" + "</tr>"
+		  "<td>" + "RAM" + "</td>" + "<td>" + data.memory.used + " MB free of " + data.memory.total + " MB" + "</td>" + "<tr>" +
+		  "<td>" + "GPU" + "</td>" + "<td>" + data.memory.gpu + " MB" + "</td>" + "<tr>"
            $(tblRow).appendTo("#memory tbody");		   
 
           var tblRow = "<tr>" + 
