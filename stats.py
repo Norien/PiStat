@@ -20,8 +20,8 @@ fifteen_minutes = subprocess.check_output("cat /proc/loadavg | awk '{print $3}'"
 cpu_model = subprocess.check_output("cat /proc/cpuinfo | grep -i '^model name' | awk -F': ' '{print $2}' | head -1 | sed 's/ \+/ /g'", shell=True)
 cpu_frequency = subprocess.check_output("cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq", shell=True)
 
-memory_total = subprocess.check_output("/usr/bin/free -tmo | grep -i Mem: | awk '{print $2}'", shell=True)
-memory_used = subprocess.check_output("/usr/bin/free -tmo | grep -i Mem: | awk '{print $4+$6+$7}'", shell=True)
+memory_total = subprocess.check_output("/usr/bin/free -tm | grep -i Mem: | awk '{print $2}'", shell=True)
+memory_used = subprocess.check_output("/usr/bin/free -tm | grep -i Mem: | awk '{print $4}'", shell=True)
 
 hostname = subprocess.check_output('hostname', shell=True)
 lan_ip = subprocess.check_output("ip route get 8.8.8.8 | awk '{print $NF; exit}'", shell=True)
@@ -42,7 +42,12 @@ smbd = subprocess.check_output("ps -ef | grep smbd | grep -v grep | awk  '{print
 smbd_status = 'online' if smbd.strip() == '1' else 'offline'
 bluetooth = subprocess.check_output("ps -ef | grep bluetooth | grep -v grep | awk  '{print $3}' | head -1", shell=True)
 bluetooth_status = 'online' if bluetooth.strip() == '1' else 'offline'
-
+flic = subprocess.check_output("ps -ef | grep flicd | grep -v grep | awk  '{print $3}' | head -1", shell=True)
+flic_status = 'online' if flic.strip() == '1' else 'offline'
+kodi = subprocess.check_output("ps -ef | grep kodi | grep -v grep | awk  '{print $3}' | head -1", shell=True)
+kodi_status = 'online' if kodi.strip() == '1' else 'offline'
+vnc = subprocess.check_output("ps -ef | grep vnc | grep -v grep | awk  '{print $3}' | head -1", shell=True)
+vnc_status = 'online' if vnc.strip() == '1' else 'offline'
 
 out = {}
 
@@ -88,5 +93,8 @@ out["processes"]["process_running"] = process_running.strip()
 out["processes"]["ssh"] = ssh_status.strip()
 out["processes"]["smbd"] = smbd_status.strip()
 out["processes"]["bluetooth"] = bluetooth_status.strip()
+out["processes"]["flic"] = flic_status.strip()
+out["processes"]["kodi"] = kodi_status.strip()
+out["processes"]["vnc"] = vnc_status.strip()
 
 print json.dumps(out)

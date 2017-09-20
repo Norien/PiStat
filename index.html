@@ -61,7 +61,10 @@
           var tblRow = "<tr>" + 
 		  "<td>" + "Total Processes" + "</td>" + "<td>" + data.processes.process_total + "</td>" + "<tr>" + 
 		  "<td>" + "SMB" + "</td>" + "<td>" + data.processes.smbd + "</td>" + "<tr>" + 		  
-		  "<td>" + "Bluetooth" + "</td>" + "<td>" + data.processes.bluetooth + "</td>" + "<tr>" + 		  
+		  "<td>" + "Bluetooth" + "</td>" + "<td>" + data.processes.bluetooth + "</td>" + "<tr>" +
+          "<td>" + "Flic" + "</td>" + "<td>" + data.processes.flic + "</td>" + "<tr>" +
+          "<td>" + "Kodi" + "</td>" + "<td>" + data.processes.kodi + "</td>" + "<tr>" + 
+          "<td>" + "VNC" + "</td>" + "<td>" + data.processes.vnc + "</td>" + "<tr>" + 		  
 		  "<td>" + "SSH" + "</td>" + "<td>" + data.processes.ssh + "</td>" + "</td>" + "</tr>"
            $(tblRow).appendTo("#processes tbody");
 		   
