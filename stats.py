@@ -26,8 +26,9 @@ memory_gpu = subprocess.check_output("vcgencmd get_mem gpu", shell=True)
 
 hostname = subprocess.check_output('hostname', shell=True)
 lan_ip = subprocess.check_output("ip route get 8.8.8.8 | awk '{print $NF; exit}'", shell=True)
-lan_mac = subprocess.check_output("cat /sys/class/net/$(ip route show default | awk '/default/ {print $5}')/address", shell=True)
-
+lan_mac = subprocess.check_output("cat /sys/class/net/$(ip route show default | awk '/default/ {print $5}')/address | tr /a-z/ /A-Z/", shell=True)
+wlan_quality = subprocess.check_output("iwconfig wlan0 | grep -i --color quality | awk  '{print $2}'", shell=True)
+bit_rate = subprocess.check_output("iwconfig wlan0 | grep -i --color bit | awk  '{print $2}'", shell=True)
 disk_space_size = subprocess.check_output("df -hl / | sed '1 d' | grep -iv '^Filesystem|Sys.' | grep -vE '^tmpfs|udev' | sort | head -5 | sed s/^/'  '/ | awk '{print $2}'", shell=True)
 disk_space_used = subprocess.check_output("df -hl / | sed '1 d' | grep -iv '^Filesystem|Sys.' | grep -vE '^tmpfs|udev' | sort | head -5 | sed s/^/'  '/ | awk '{print $3}'", shell=True)
 disk_space_available = subprocess.check_output("df -hl / | sed '1 d' | grep -iv '^Filesystem|Sys.' | grep -vE '^tmpfs|udev' | sort | head -5 | sed s/^/'  '/ | awk '{print $4}'", shell=True)
@@ -79,6 +80,8 @@ out["network"] = {}
 out["network"]["hostname"] = hostname.strip()
 out["network"]["lan_ip"] = lan_ip.strip()
 out["network"]["lan_mac"] = lan_mac.strip()
+out["network"]["wlan_quality"] = wlan_quality.strip()[8:]
+out["network"]["bit_rate"] = bit_rate.strip()[5:]
 
 out["disk_space"] = {}
 out["disk_space"]["disk_space_size"] = disk_space_size.strip()[:-1]

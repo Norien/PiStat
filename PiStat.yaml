@@ -48,6 +48,8 @@ group:
      # NETWORK
      - sensor.pistat_ip
      - sensor.pistat_mac
+     - sensor.pistat_wifi_link_quality
+     - sensor.pistat_bit_rate
      - sensor.pistat_hostname
      # DISK SPACE
      - sensor.pistat_disk_size
@@ -155,6 +157,17 @@ sensor:
     resource: http://192.168.1.70/stats.json
     value_template: '{{ value_json.network.lan_ip }}'
 
+  - platform: rest
+    name: pistat_wifi_link_quality
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.network.wlan_quality }}'    
+
+  - platform: rest
+    name: pistat_bit_rate
+    resource: http://192.168.1.70/stats.json
+    value_template: '{{ value_json.network.bit_rate }}'
+    unit_of_measurement: 'MB/s'    
+    
   - platform: rest
     name: pistat_mac
     resource: http://192.168.1.70/stats.json
