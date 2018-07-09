@@ -6,7 +6,7 @@ Using Python run shell commands and output results into ```stats.json``` for use
 ## USAGE
 I run this in the ```/var/www/html``` folder for apache on rasbian jessie. This provides an HTTP enpoint at the ip of the device for quick checking stats.
 * update ```sudo apt-get update && sudo apt-get upgrade```
-* Install apache2 ```sudo apt-get install apache2 apache2-utils```
+* Install apache2 & git ```sudo apt-get install apache2 apache2-utils git```
 * Remove generated ```index.html``` with ```sudo rm -f /var/www/html/index.html```
 * Copy files ```sudo git clone https://github.com/Norien/PiStat /var/www/html/```
 * Set Premissions ```sudo chmod -R 0777 /var/www/html/```
