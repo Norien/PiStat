@@ -26,6 +26,7 @@ memory_gpu = subprocess.check_output("vcgencmd get_mem gpu", shell=True)
 
 hostname = subprocess.check_output('hostname', shell=True)
 lan_ip = subprocess.check_output("ip route get 8.8.8.8 | awk '{print $NF; exit}'", shell=True)
+wan_ip = subprocess.check_output("curl -s https://canihazip.com/s", shell=True)
 lan_mac = subprocess.check_output("cat /sys/class/net/$(ip route show default | awk '/default/ {print $5}')/address | tr /a-z/ /A-Z/", shell=True)
 wlan_quality = subprocess.check_output("iwconfig wlan0 | grep -i --color quality | awk  '{print $2}'", shell=True)
 bit_rate = subprocess.check_output("iwconfig wlan0 | grep -i --color bit | awk  '{print $2}'", shell=True)
@@ -79,6 +80,7 @@ out["memory"]["gpu"] = memory_gpu.strip()[4:-1]
 out["network"] = {}
 out["network"]["hostname"] = hostname.strip()
 out["network"]["lan_ip"] = lan_ip.strip()
+out["network"]["wan_ip"] = wan_ip.strip()
 out["network"]["lan_mac"] = lan_mac.strip()
 out["network"]["wlan_quality"] = wlan_quality.strip()[8:]
 out["network"]["bit_rate"] = bit_rate.strip()[5:]
